@@ -1,7 +1,7 @@
 from gpiozero import PWMLED, LED
 from time import sleep
 import socket
-import msgpack
+import json
 
 drive = PWMLED(13)
 turn = PWMLED(6)
@@ -47,7 +47,7 @@ while True:
         drive.value = 0
         turn.value = 0
         continue
-    d = msgpack.loads(pkt)
+    d = json.loads(pkt)
     drive.value = d['drive_value']
     if d['drive_direction'] == 'forward':
         forward()

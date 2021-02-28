@@ -1,5 +1,5 @@
 import socket
-import msgpack
+import json
 import time
 import pygame
 import sys
@@ -25,7 +25,7 @@ msg = dict(
         drive_direction='forward', 
         turn_direction='left',
         )
-s.sendto(msgpack.dumps(msg), (UDP_IP, UDP_PORT))
+s.sendto(json.dumps(msg), (UDP_IP, UDP_PORT))
 
 TH = 4
 
@@ -43,7 +43,7 @@ while True:
     msg['turn_direction'] = 'right' if joystick.get_axis(0) < 0 else 'left'
     tv = abs(joystick.get_axis(0))
     msg['turn_value'] = 0 if tv < 0.1 else tv
-    s.sendto(msgpack.dumps(msg), (UDP_IP, UDP_PORT))
+    s.sendto(json.dumps(msg), (UDP_IP, UDP_PORT))
 
     #print(joystick.get_axis(0), joystick.get_axis(1), joystick.get_axis(2), joystick.get_axis(3), joystick.get_axis(4), joystick.get_axis(5))
 
