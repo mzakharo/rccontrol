@@ -23,9 +23,10 @@ msg = dict(
         )
 
 while True:
-    time.sleep(1/60)
+    time.sleep(1/20)
     pygame.event.pump()
-    msg['drive_value'] = (joystick.get_axis(5) + 1) / 2
+    dv = (joystick.get_axis(4) + 1) / 2
+    msg['drive_value'] = 0 if dv < 0.1 else dv
     msg['drive_direction'] = 'forward' if joystick.get_button(1) == 1 else 'b'
     msg['turn_direction'] = 'right' if joystick.get_axis(0) < 0 else 'left'
     tv = abs(joystick.get_axis(0))
